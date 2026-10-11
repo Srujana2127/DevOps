@@ -80,3 +80,7 @@ Successfully created and verified a Kubernetes Pod running Nginx, exposed it thr
 * NodePort networking
 * Running a local Kubernetes cluster with Minikube
 * Verifying Pods and Services using kubectl through Minikube
+
+## Screenshot
+
+![Nginx Welcome Page](nginx-welcome.png)
