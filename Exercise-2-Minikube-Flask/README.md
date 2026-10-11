@@ -74,3 +74,25 @@ Open the URL displayed in the terminal in a browser to view the Flask applicatio
 
 The Flask application was successfully built into a Docker image, deployed on Minikube, and accessed through a Kubernetes Service.
 
+## Deployment Verification
+
+### Inspect the Deployment
+
+```bash
+minikube kubectl -- describe deployment flask-app
+```
+
+The deployment showed one desired replica and one available replica, confirming that the application was running.
+
+### View Application Logs
+
+```bash
+minikube kubectl -- logs deployment/flask-app
+```
+
+The logs confirmed that the Flask application was running and successfully responding to HTTP requests.
+
+## Verification Result
+
+The Flask application was successfully deployed on Minikube, exposed through a Kubernetes Service, and accessed through a browser.
+
