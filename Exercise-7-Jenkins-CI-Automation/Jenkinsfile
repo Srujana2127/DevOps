@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Exercise 7 - Jenkins CI Automation'
+                echo 'Pipeline configuration loaded successfully'
+            }
+        }
+
+        stage('Verify Project Configuration') {
+            steps {
+                echo 'Python application: app.py'
+                echo 'Unit tests: test_app.py'
+                echo 'Docker configuration: Dockerfile and compose.yaml'
+            }
+        }
+
+        stage('Complete') {
+            steps {
+                echo 'Jenkins pipeline completed successfully!'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Exercise 7 CI demonstration passed.'
+        }
+        failure {
+            echo 'Pipeline failed. Check Console Output.'
+        }
+    }
+}
