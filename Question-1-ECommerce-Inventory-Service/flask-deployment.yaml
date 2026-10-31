@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: inventory-replicaset
+  namespace: inventory-exam
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory-api
+  template:
+    metadata:
+      labels:
+        app: inventory-api
+    spec:
+      containers:
+        - name: inventory-api
+          image: inventory-api:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
