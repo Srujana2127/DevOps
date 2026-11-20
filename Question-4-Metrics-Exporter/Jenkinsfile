@@ -21,14 +21,14 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                dir('Question-4-Metrics-Exporter') {
-                    echo 'Building Metrics Exporter'
-                    sh 'python3 -m py_compile app.py'
-                    sh 'mkdir -p deployment'
-                }
-            }
+    steps {
+        dir('Question-4-Metrics-Exporter') {
+            echo 'Building Metrics Exporter'
+            sh 'python3 -m py_compile app.py'
+            sh 'rm -rf deployment && mkdir -p deployment'
         }
+    }
+}
 
         stage('Test') {
             steps {
