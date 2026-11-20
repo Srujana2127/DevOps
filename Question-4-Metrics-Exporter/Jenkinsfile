@@ -48,7 +48,7 @@ pipeline {
                         cp app.py requirements.txt test_app.py deployment/
                         tar -czf metrics-exporter.tar.gz deployment
                     '''
-                    archiveArtifacts artifacts: 'Question-4-Metrics-Exporter/metrics-exporter.tar.gz'
+                    archiveArtifacts artifacts: 'metrics-exporter.tar.gz'
                 }
             }
         }
