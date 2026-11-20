@@ -3,7 +3,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 echo 'Checking out Python project'
@@ -13,37 +12,44 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                echo 'Installing Python dependencies'
-                sh 'python3 -m venv venv'
-                sh 'venv/bin/pip install -r requirements.txt'
+                dir('Question-4-Metrics-Exporter') {
+                    echo 'Installing Python dependencies'
+                    sh 'python3 -m venv venv'
+                    sh 'venv/bin/pip install -r requirements.txt'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building Metrics Exporter'
-                sh 'python3 -m py_compile app.py'
-                sh 'mkdir -p deployment'
+                dir('Question-4-Metrics-Exporter') {
+                    echo 'Building Metrics Exporter'
+                    sh 'python3 -m py_compile app.py'
+                    sh 'mkdir -p deployment'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running automated tests'
-                sh 'venv/bin/pytest -v'
+                dir('Question-4-Metrics-Exporter') {
+                    echo 'Running automated tests'
+                    sh 'venv/bin/pytest -v'
+                }
             }
         }
 
         stage('Package Deployment') {
             steps {
-                echo 'Packaging deployment files'
-                sh '''
-                    mkdir -p deployment
-                    cp app.py requirements.txt deployment/
-                    cp test_app.py deployment/
-                    tar -czf metrics-exporter.tar.gz deployment
-                '''
-                archiveArtifacts artifacts: 'metrics-exporter.tar.gz'
+                dir('Question-4-Metrics-Exporter') {
+                    echo 'Packaging deployment files'
+                    sh '''
+                        mkdir -p deployment
+                        cp app.py requirements.txt test_app.py deployment/
+                        tar -czf metrics-exporter.tar.gz deployment
+                    '''
+                    archiveArtifacts artifacts: 'Question-4-Metrics-Exporter/metrics-exporter.tar.gz'
+                }
             }
         }
     }
@@ -52,11 +58,9 @@ pipeline {
         success {
             echo 'Metrics Exporter Pipeline completed successfully!'
         }
-
         failure {
             echo 'Metrics Exporter Pipeline FAILED. Check stage logs.'
         }
-
         always {
             echo 'Pipeline execution finished.'
         }
